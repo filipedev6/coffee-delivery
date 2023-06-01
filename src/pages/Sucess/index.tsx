@@ -1,3 +1,3 @@
-export function Sucess() {
-  return <h1>Sucess</h1>
+export function Success() {
+  return <h1>Success</h1>
 }
