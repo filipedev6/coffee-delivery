@@ -1,3 +1,9 @@
+import { Hero } from './components/Hero'
+
 export function Home() {
-  return <div>Hello Word</div>
+  return (
+    <div>
+      <Hero />
+    </div>
+  )
 }
