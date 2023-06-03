@@ -1,3 +1,3 @@
 export function Home() {
-  return <div>aaa</div>
+  return <div>Hello Word</div>
 }

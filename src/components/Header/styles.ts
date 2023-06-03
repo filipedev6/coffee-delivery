@@ -18,6 +18,7 @@ export const HeaderContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding-inline: 18px;
   }
 
   ul {
@@ -51,4 +52,9 @@ export const Location = styled.li`
 
 export const CheckoutCart = styled.li`
   background: ${(props) => props.theme['yellow-300']};
+  transition: 0.1s;
+
+  &:hover {
+    opacity: 0.8;
+  }
 `
