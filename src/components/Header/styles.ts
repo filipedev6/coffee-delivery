@@ -1,22 +1,24 @@
 import styled from 'styled-components'
 
-export const HeaderContainer = styled.header`
-  background: ${(props) => props.theme['base-200']};
-
-  position: fixed;
-  left: 0;
-  right: 0;
-`
-
-export const HeaderContent = styled.div`
-  max-width: 70rem;
+export const HeaderContainer = styled.div`
   height: 104px;
-  margin-inline: auto;
   width: 100%;
 
+  position: sticky;
+  left: 0;
+  right: 0;
+  top: 0;
+
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+
+  background: ${(props) => props.theme['base-200']};
+
+  > div {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
   ul {
     list-style: none;
