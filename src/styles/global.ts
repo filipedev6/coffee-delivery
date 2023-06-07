@@ -16,4 +16,9 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: 400;
     font-size: 1rem;
   }
+
+  input:focus {
+    outline: 0;
+    box-shadow: 0 0 0 1px ${(props) => props.theme['yellow-500']};
+  }
 `
