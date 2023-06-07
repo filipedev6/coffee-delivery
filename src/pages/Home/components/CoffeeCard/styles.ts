@@ -123,6 +123,10 @@ export const AmountCoffe = styled.div`
     background: 0;
     border: 0;
     cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `
 

@@ -13,33 +13,53 @@ import {
   TagListCoffe,
   TitleCoffeeContainer,
 } from './styles'
+import { Coffee } from '../OthersCoffee'
+import { useState } from 'react'
 
-export function CoffeeCard() {
+export function CoffeeCard({
+  name,
+  tagsLabel,
+  description,
+  price,
+  coffeeImg,
+}: Coffee) {
+  const [quantityCoffee, setQuantityCoffee] = useState(1)
+
+  function handleMinusQuantityCoffee() {
+    if (quantityCoffee > 1) {
+      setQuantityCoffee((state) => state - 1)
+    }
+  }
+
+  function handlePlusQuantityCoffee() {
+    setQuantityCoffee((state) => state + 1)
+  }
+
   return (
     <CardCoffeeContainer>
-      <ImageCoffee src="/coffees/Type=Americano.png" alt="Coffee" />
+      <ImageCoffee src={coffeeImg} alt="Coffee" />
 
       <ListTagsCoffee>
-        <TagListCoffe>Tradicional</TagListCoffe>
+        {tagsLabel.map((tag) => {
+          return <TagListCoffe key={tag}>{tag}</TagListCoffe>
+        })}
       </ListTagsCoffee>
 
-      <TitleCoffeeContainer>Expresso Tradicional</TitleCoffeeContainer>
-      <DescriptionCoffeeContainer>
-        O tradicional café feito com água quente e grãos moídos
-      </DescriptionCoffeeContainer>
+      <TitleCoffeeContainer>{name}</TitleCoffeeContainer>
+      <DescriptionCoffeeContainer>{description}</DescriptionCoffeeContainer>
 
       <BuyContainerCoffee>
         <PriceContainerCoffee>
-          R$ <strong>9,90</strong>
+          R$ <strong>{price.toFixed(2).replace('.', ',')}</strong>
         </PriceContainerCoffee>
 
         <AmountCoffeeContainer>
           <AmountCoffe>
-            <button>
+            <button onClick={handleMinusQuantityCoffee}>
               <Minus color="#8047F8" size={14} />
             </button>
-            <QuantityCoffee>1</QuantityCoffee>
-            <button>
+            <QuantityCoffee>{quantityCoffee}</QuantityCoffee>
+            <button onClick={handlePlusQuantityCoffee}>
               <Plus color="#8047F8" size={14} />
             </button>
           </AmountCoffe>

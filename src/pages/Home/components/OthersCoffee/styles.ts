@@ -20,5 +20,6 @@ export const TitleOrthersCoffee = styled.h2`
 
 export const OthersContent = styled.div`
   display: flex;
-  flex-direction: column;
+  gap: 32px;
+  flex-wrap: wrap;
 `
