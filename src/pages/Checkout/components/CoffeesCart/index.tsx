@@ -1,3 +1,4 @@
+import { useContext } from 'react'
 import { Product } from '../Product'
 import {
   AllFees,
@@ -9,20 +10,35 @@ import {
   TotalItens,
   TotalOrder,
 } from './styles'
+import { CartContext } from '../../../../contexts/CartContext'
 
 export function CoffeesCart() {
+  const { coffeeList } = useContext(CartContext)
+
   return (
     <CoffeesCartContainer>
       <ContentCoffeesCart>
-        <Product />
-        <Product />
+        {coffeeList.map((productCoffee) => {
+          return (
+            <Product key={productCoffee.id} productCoffee={productCoffee} />
+          )
+        })}
       </ContentCoffeesCart>
 
       <TotalCartContainer>
         <AllFees>
           <TotalItens>
             <span>Total de itens</span>
-            <span>R$ 29,70</span>
+            <span>
+              {coffeeList
+                .reduce((sumTotal, productCoffee) => {
+                  return (
+                    sumTotal + productCoffee.valuePrice * productCoffee.quantity
+                  )
+                }, 0)
+                .toFixed(2)
+                .replace('.', ',')}
+            </span>
           </TotalItens>
 
           <DeliveryRate>
@@ -32,7 +48,17 @@ export function CoffeesCart() {
 
           <TotalOrder>
             <span>Total</span>
-            <span>R$ 33,20</span>
+            <span>
+              R${' '}
+              {coffeeList
+                .reduce((sumTotal, productCoffee) => {
+                  return (
+                    sumTotal + productCoffee.valuePrice * productCoffee.quantity
+                  )
+                }, 3.5)
+                .toFixed(2)
+                .replace('.', ',')}
+            </span>
           </TotalOrder>
         </AllFees>
 

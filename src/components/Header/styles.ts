@@ -53,6 +53,25 @@ export const Location = styled.li`
 export const CheckoutCart = styled.li`
   background: ${(props) => props.theme['yellow-300']};
   transition: 0.1s;
+  position: relative;
+
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+
+    font-size: 0.75rem;
+    color: ${(props) => props.theme.white};
+    background: ${(props) => props.theme['yellow-700']};
+
+    position: absolute;
+    top: -8px;
+    right: -8px;
+  }
 
   &:hover {
     opacity: 0.8;

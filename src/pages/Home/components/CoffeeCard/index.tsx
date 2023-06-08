@@ -13,57 +13,71 @@ import {
   TagListCoffe,
   TitleCoffeeContainer,
 } from './styles'
-import { Coffee } from '../OthersCoffee'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { CartContext, typeCoffeeList } from '../../../../contexts/CartContext'
 
-export function CoffeeCard({
-  name,
-  tagsLabel,
-  description,
-  price,
-  coffeeImg,
-}: Coffee) {
-  const [quantityCoffee, setQuantityCoffee] = useState(1)
+interface CoffeeCardProps {
+  productCoffee: typeCoffeeList
+}
 
-  function handleMinusQuantityCoffee() {
-    if (quantityCoffee > 1) {
-      setQuantityCoffee((state) => state - 1)
-    }
+export function CoffeeCard({ productCoffee }: CoffeeCardProps) {
+  const [quantityCoffeeProduct, setQuantityCoffeeProduct] = useState(1)
+  const { addCoffeeToCart } = useContext(CartContext)
+
+  function handlePlusQuantityCoffeeProduct() {
+    setQuantityCoffeeProduct((state) => state + 1)
   }
 
-  function handlePlusQuantityCoffee() {
-    setQuantityCoffee((state) => state + 1)
+  function handleMinusQuantityCoffeeProduct() {
+    if (quantityCoffeeProduct === 1) {
+      setQuantityCoffeeProduct(1)
+      return
+    }
+
+    setQuantityCoffeeProduct((state) => state - 1)
+  }
+
+  function handleAddCoffeeList() {
+    addCoffeeToCart(productCoffee, quantityCoffeeProduct)
   }
 
   return (
     <CardCoffeeContainer>
-      <ImageCoffee src={coffeeImg} alt="Coffee" />
+      <ImageCoffee src={productCoffee.urlImg} alt="Coffee" />
 
       <ListTagsCoffee>
-        {tagsLabel.map((tag) => {
-          return <TagListCoffe key={tag}>{tag}</TagListCoffe>
+        {productCoffee.labelsTag.map((label: string) => {
+          return <TagListCoffe key={label}>{label}</TagListCoffe>
         })}
       </ListTagsCoffee>
 
-      <TitleCoffeeContainer>{name}</TitleCoffeeContainer>
-      <DescriptionCoffeeContainer>{description}</DescriptionCoffeeContainer>
+      <TitleCoffeeContainer>{productCoffee.name}</TitleCoffeeContainer>
+      <DescriptionCoffeeContainer>
+        {productCoffee.description}
+      </DescriptionCoffeeContainer>
 
       <BuyContainerCoffee>
         <PriceContainerCoffee>
-          R$ <strong>{price.toFixed(2).replace('.', ',')}</strong>
+          R${' '}
+          <strong>
+            {productCoffee.valuePrice.toFixed(2).replace('.', ',')}
+          </strong>
         </PriceContainerCoffee>
 
         <AmountCoffeeContainer>
           <AmountCoffe>
-            <button onClick={handleMinusQuantityCoffee}>
+            <button onClick={handleMinusQuantityCoffeeProduct}>
               <Minus color="#8047F8" size={14} />
             </button>
-            <QuantityCoffee>{quantityCoffee}</QuantityCoffee>
-            <button onClick={handlePlusQuantityCoffee}>
+            <QuantityCoffee>{quantityCoffeeProduct}</QuantityCoffee>
+            <button onClick={handlePlusQuantityCoffeeProduct}>
               <Plus color="#8047F8" size={14} />
             </button>
           </AmountCoffe>
-          <CartCoffee>
+          <CartCoffee
+            onClick={handleAddCoffeeList}
+            title="Adicionar no carrinho"
+          >
             <ShoppingCart weight="fill" color="#F3F2F2" />
           </CartCoffee>
         </AmountCoffeeContainer>
