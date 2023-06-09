@@ -41,7 +41,12 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     })
 
     if (findSameProduct) {
-      updateCoffeeToCart(productCoffeeAdd, quantityCoffeeProduct)
+      updateCoffeeToCart(
+        productCoffeeAdd,
+        findSameProduct.quantity
+          ? findSameProduct.quantity + quantityCoffeeProduct
+          : quantityCoffeeProduct,
+      )
     } else {
       setCoffeeList((state) => [
         ...state,
@@ -74,6 +79,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     })
 
     setCoffeeList(productsListUpdated)
+    console.log(coffeeList)
   }
 
   return (
