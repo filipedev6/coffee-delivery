@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { CurrencyDollar, MapPin, Timer } from '@phosphor-icons/react'
 import IllustrationImage from '../../assets/Illustration.png'
 import {
@@ -12,7 +13,43 @@ import {
   SuccessContent,
 } from './styles'
 
+interface deliveryAddressType {
+  bairro: string
+  cep: string
+  cidade: string
+  numero: number
+  rua: string
+  uf: string
+}
+
 export function Success() {
+  const [paymentMethodCoffee, setPaymentMethodCoffee] = useState('')
+  const [deliveryAddressInformation, setDeliveryAddressInformation] =
+    useState<deliveryAddressType>({
+      cep: '',
+      numero: 0,
+      cidade: '',
+      bairro: '',
+      rua: '',
+      uf: '',
+    })
+
+  useEffect(() => {
+    const deliveryAddress = localStorage.getItem(
+      '@ignite-coffee-delivery:delivery-address-1.0.0',
+    )
+    const statePaymentMethod = localStorage.getItem(
+      '@ignite-coffee-delivery:payment-option-state-1.0.0',
+    )
+
+    if (deliveryAddress) {
+      setDeliveryAddressInformation(JSON.parse(deliveryAddress))
+    }
+    if (statePaymentMethod) {
+      setPaymentMethodCoffee(statePaymentMethod)
+    }
+  })
+
   return (
     <SuccessContainer>
       <SuccessContent className="container">
@@ -29,9 +66,15 @@ export function Success() {
 
               <InfosContent>
                 <p>
-                  Entrega em <strong>Rua João Daniel Martinelli, 102</strong>{' '}
+                  Entrega em{' '}
+                  <strong>
+                    {deliveryAddressInformation.rua},{' '}
+                    {deliveryAddressInformation.numero}
+                  </strong>{' '}
                   <br />
-                  Farrapos - Porto Alegre, RS
+                  {deliveryAddressInformation.bairro} -{' '}
+                  {deliveryAddressInformation.cidade},{' '}
+                  {deliveryAddressInformation.uf}
                 </p>
               </InfosContent>
             </ContentInfosOrder>
@@ -54,7 +97,7 @@ export function Success() {
 
               <InfosContent>
                 <p>Pagamento na entrega</p>
-                <strong>Cartão de Crédito</strong>
+                <strong>{paymentMethodCoffee}</strong>
               </InfosContent>
             </ContentInfosOrder>
           </OrderContent>

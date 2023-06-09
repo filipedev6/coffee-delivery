@@ -64,4 +64,11 @@ export const PaymentMethodButton = styled.button`
   line-height: 160%;
 
   color: ${(props) => props.theme['base-700']};
+  border: 1px solid transparent;
+
+  &.styleActivePayment {
+    border: 1px solid ${(props) => props.theme['purple-500']};
+    background: ${(props) => props.theme['purple-300']};
+    border-radius: 6px;
+  }
 `

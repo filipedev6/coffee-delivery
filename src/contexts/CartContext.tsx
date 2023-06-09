@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState } from 'react'
+import { ReactNode, createContext, useState, useEffect } from 'react'
 
 export interface typeCoffeeList {
   id: number
@@ -11,6 +11,7 @@ export interface typeCoffeeList {
 }
 
 interface CartContextType {
+  paymentMethodAction: string
   coffeeList: typeCoffeeList[]
   addCoffeeToCart: (
     productCoffeeAdd: typeCoffeeList,
@@ -21,6 +22,8 @@ interface CartContextType {
     productCoffeeUpdate: typeCoffeeList,
     newQuantity: number,
   ) => void
+  setCoffeeListToContext: (list: typeCoffeeList[]) => void
+  setPaymentMethodActionToContext: (payment: string) => void
 }
 
 export const CartContext = createContext({} as CartContextType)
@@ -30,7 +33,18 @@ interface CartContextProviderProps {
 }
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
-  const [coffeeList, setCoffeeList] = useState<typeCoffeeList[]>([])
+  const [paymentMethodAction, setPaymentMethodAction] = useState('')
+  const [coffeeList, setCoffeeList] = useState<typeCoffeeList[]>(() => {
+    const storage = localStorage.getItem(
+      '@ignite-coffee-delivery:products-state-1.0.0',
+    )
+
+    if (storage) {
+      return JSON.parse(storage)
+    }
+
+    return []
+  })
 
   function addCoffeeToCart(
     productCoffeeAdd: typeCoffeeList,
@@ -82,6 +96,21 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     console.log(coffeeList)
   }
 
+  function setCoffeeListToContext(list: typeCoffeeList[]) {
+    setCoffeeList(list)
+  }
+
+  function setPaymentMethodActionToContext(payment: string) {
+    setPaymentMethodAction(payment)
+  }
+
+  useEffect(() => {
+    localStorage.setItem(
+      '@ignite-coffee-delivery:products-state-1.0.0',
+      JSON.stringify(coffeeList),
+    )
+  }, [coffeeList])
+
   return (
     <CartContext.Provider
       value={{
@@ -89,6 +118,9 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         addCoffeeToCart,
         removeCoffeeToCart,
         updateCoffeeToCart,
+        setCoffeeListToContext,
+        paymentMethodAction,
+        setPaymentMethodActionToContext,
       }}
     >
       {children}

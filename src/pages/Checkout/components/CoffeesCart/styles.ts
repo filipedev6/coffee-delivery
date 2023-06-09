@@ -72,4 +72,9 @@ export const ConfirmOrder = styled.button`
   line-height: 160%;
 
   cursor: pointer;
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
 `

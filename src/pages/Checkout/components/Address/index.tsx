@@ -5,8 +5,11 @@ import {
   ContentAddress,
   ContentAddressHeader,
 } from './styles'
+import { useFormContext } from 'react-hook-form'
 
 export function Address() {
+  const { register } = useFormContext()
+
   return (
     <AddressContainer>
       <AddressHeader>
@@ -18,13 +21,33 @@ export function Address() {
         </ContentAddressHeader>
       </AddressHeader>
       <ContentAddress>
-        <input name="cep" type="text" placeholder="CEP" />
-        <input name="rua" type="text" placeholder="Rua" />
-        <input name="numero" type="text" placeholder="Número" />
-        <input name="complemento" type="text" placeholder="Complemento" />
-        <input name="bairro" type="text" placeholder="Bairro" />
-        <input name="cidade" type="text" placeholder="Cidade" />
-        <input name="uf" type="text" placeholder="UF" />
+        <input {...register('cep')} name="cep" type="text" placeholder="CEP" />
+        <input {...register('rua')} name="rua" type="text" placeholder="Rua" />
+        <input
+          {...register('numero', { valueAsNumber: true })}
+          name="numero"
+          type="text"
+          placeholder="Número"
+        />
+        <input
+          {...register('complemento')}
+          name="complemento"
+          type="text"
+          placeholder="Complemento"
+        />
+        <input
+          {...register('bairro')}
+          name="bairro"
+          type="text"
+          placeholder="Bairro"
+        />
+        <input
+          {...register('cidade')}
+          name="cidade"
+          type="text"
+          placeholder="Cidade"
+        />
+        <input {...register('uf')} name="uf" type="text" placeholder="UF" />
       </ContentAddress>
     </AddressContainer>
   )
