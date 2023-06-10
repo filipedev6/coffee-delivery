@@ -1,6 +1,6 @@
 # Coffee Delivery
 
-![preview](/CoffeeDelivery.gif)
+![preview](./src/assets/GIF/coffeeDelivery.gif)
 
 Este projeto de desafio me ajudou a praticar todo o meu conhecimento de React Context API, Formularios Controlados é não controlados, React Hook Form e zod. Abaixo está um preview do deploy.
 
