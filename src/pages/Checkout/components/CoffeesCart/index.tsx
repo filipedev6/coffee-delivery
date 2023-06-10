@@ -12,7 +12,7 @@ import {
 } from './styles'
 import { CartContext } from '../../../../contexts/CartContext'
 import { useFormContext } from 'react-hook-form'
-import { newCoffeeFormData } from '../../../../contexts/FormContext'
+// import { newCoffeeFormData } from '../../../../contexts/FormContext'
 import { useNavigate } from 'react-router-dom'
 
 export function CoffeesCart() {
@@ -25,7 +25,7 @@ export function CoffeesCart() {
   const { handleSubmit, watch } = useFormContext()
   const navigate = useNavigate()
 
-  function handleConfirmToCoffee(data: newCoffeeFormData) {
+  function handleConfirmToCoffee(data: any) {
     console.log(data)
 
     localStorage.setItem(

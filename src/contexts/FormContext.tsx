@@ -29,7 +29,7 @@ export function FormContextProvider({ children }: { children: ReactNode }) {
     defaultValues: {
       cep: '',
       rua: '',
-      numero: '',
+      numero: 0,
       bairro: '',
       cidade: '',
       uf: '',
